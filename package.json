@@ -6,11 +6,12 @@
   "license": "MIT",
   "scripts": {
     "build": "babel src -d lib",
+    "format": "prettier-standard 'src/**/*.js'",
     "precommit": "lint-staged",
     "start": "babel-node src/index"
   },
   "lint-staged": {
-    "*.js": ["eslint --fix", "git add"]
+    "*.js": ["prettier-standard", "git add"]
   },
   "dependencies": {
     "zen-observable": "^0.5.2"
@@ -20,13 +21,14 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.0",
-    "eslint": "^4.5.0",
+    "eslint": "^4.6.0",
     "eslint-config-standard": "^10.2.1",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-node": "^5.1.1",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^3.0.1",
     "husky": "^0.14.3",
-    "lint-staged": "^4.0.4"
+    "lint-staged": "^4.0.4",
+    "prettier-standard": "^6.0.0"
   }
 }
