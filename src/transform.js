@@ -2,7 +2,7 @@ import Observable from 'zen-observable'
 
 /**
  * Returns a new Observable expressed as an operation on the values emitted by a single observable.
- * Usefull internally to provided repeated logic for other operations.
+ * Usefull internally to provide repeated logic for other operations.
  * @param  {Observable} input     Observable stream
  * @param  {Function}   operation Operation to perform on input stream
  * @return {Observable}           New Observable
