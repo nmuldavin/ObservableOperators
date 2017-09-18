@@ -1,6 +1,7 @@
 /**
  * Applies a function against an accumulator and each observed value of an input Observable,
  * returning a Promise that resolves with the accumulated value when the input is complete.
+ * Similar to {@link scan}.
  * @param  {Observable} input   Observable stream
  * @param  {Function}   fn      Accumulator
  * @param  {*}          initial Initial value
