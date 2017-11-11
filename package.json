@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "babel-register": "^6.26.0",
-    "zen-observable": "^0.5.2"
+    "zen-observable": "^0.6.0"
   },
   "description": "A library of simple ES observable operations",
   "repository": "https://github.com/nmuldavin/ObservableOperators.git",
@@ -34,11 +34,11 @@
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^3.0.1",
     "husky": "^0.14.3",
-    "lint-staged": "^4.0.4",
-    "mocha": "^3.5.0",
+    "lint-staged": "^5.0.0",
+    "mocha": "^4.0.1",
     "mocha-clean": "^1.0.0",
-    "prettier-standard": "^6.0.0",
-    "sinon": "^3.2.1",
+    "prettier-standard": "^7.0.3",
+    "sinon": "^4.1.2",
     "sinon-chai": "^2.13.0"
   }
 }
