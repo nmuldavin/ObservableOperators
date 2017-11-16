@@ -1,14 +1,17 @@
-language: node_js
-node_js:
-- '6'
-- '7'
-- 'node'
-jobs
+jobs:
   include:
+    - stage: test
+      node_js:
+        - '6'
+        - '7'
+        - 'node'
+      script: yarn test
     - stage: build
       node_js: 'node'
-      script: yarn build
-      script: yarn docs
+      script:
+        - |
+          yarn build && \
+          yarn docs
       deploy:
         provider: pages
         skip_cleanup: true
