@@ -1,0 +1,22 @@
+language: node_js
+jobs:
+  include:
+    - stage: test
+      node_js:
+        - '6'
+        - '7'
+        - 'node'
+    - stage: build
+      node_js: 'node'
+      script:
+        - |
+          yarn && \
+          yarn build && \
+          yarn docs
+      deploy:
+        provider: pages
+        skip_cleanup: true
+        github_token: $GITHUB_TOKEN
+        local_dir: docs
+        on:
+          branch: master
