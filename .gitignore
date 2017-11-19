@@ -2,3 +2,6 @@
 node_modules
 lib
 docs
+dist
+coverage
+.nyc_output
