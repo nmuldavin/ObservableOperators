@@ -10,7 +10,7 @@
     "format": "prettier-standard 'src/**/*.js'",
     "precommit": "lint-staged",
     "test": "mocha --opts ./mocha.opts",
-    "test:coverage": "nyc --reporter=lcov --reporter=text --all mocha --opts ./mocha.opts"
+    "test:coverage": "nyc --reporter=lcov --reporter=text mocha --opts ./mocha.opts"
   },
   "lint-staged": {
     "*.js": [
