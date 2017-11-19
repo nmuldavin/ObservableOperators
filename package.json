@@ -9,8 +9,8 @@
     "docs": "documentation build src/** -f html -o docs -g",
     "format": "prettier-standard 'src/**/*.js'",
     "precommit": "lint-staged",
-    "start": "babel-node src/index",
-    "test": "mocha --opts ./mocha.opts"
+    "test": "mocha --opts ./mocha.opts",
+    "test:coverage": "nyc --reporter=lcov --reporter=text --all mocha --opts ./mocha.opts"
   },
   "lint-staged": {
     "*.js": [
@@ -18,16 +18,20 @@
       "git add"
     ]
   },
+  "nyc": {
+    "include": ["src/**/*.js"]
+  },
   "dependencies": {
     "babel-register": "^6.26.0",
     "zen-observable": "^0.6.0"
   },
-  "description": "A library of simple ES observable operations",
+  "description": "A library of simple ES Observable operators",
   "repository": "https://github.com/nmuldavin/ObservableOperators.git",
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.0",
     "chai": "^4.1.2",
+    "coveralls": "^3.0.0",
     "documentation": "^5.3.3",
     "eslint": "^4.6.0",
     "eslint-config-standard": "^10.2.1",
@@ -39,6 +43,7 @@
     "lint-staged": "^5.0.0",
     "mocha": "^4.0.1",
     "mocha-clean": "^1.0.0",
+    "nyc": "^11.3.0",
     "prettier-standard": "^7.0.3",
     "sinon": "^4.1.2",
     "sinon-chai": "^2.13.0"
