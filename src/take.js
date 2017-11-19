@@ -1,5 +1,4 @@
 import transform from './transform'
-import Observable from 'zen-observable'
 
 /**
  * Emits the first N values of an input Observable

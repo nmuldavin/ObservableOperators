@@ -1,4 +1,3 @@
-import Observable from 'zen-observable'
 import addOperators from './addOperators'
 
 import filter from './filter'

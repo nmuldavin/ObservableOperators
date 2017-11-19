@@ -1,5 +1,3 @@
-import Observable from 'zen-observable'
-
 /**
  * Returns a new Observable expressed as an operation on the values emitted by a single observable.
  * Usefull internally to provide repeated logic for other operations.

@@ -19,12 +19,11 @@
     ]
   },
   "nyc": {
-    "include": ["src/**/*.js"]
+    "include": [
+      "src/**/*.js"
+    ]
   },
-  "dependencies": {
-    "babel-register": "^6.26.0",
-    "zen-observable": "^0.6.0"
-  },
+  "dependencies": {},
   "description": "A library of simple ES Observable operators",
   "repository": "https://github.com/nmuldavin/ObservableOperators.git",
   "devDependencies": {
@@ -46,6 +45,7 @@
     "nyc": "^11.3.0",
     "prettier-standard": "^7.0.3",
     "sinon": "^4.1.2",
-    "sinon-chai": "^2.13.0"
+    "sinon-chai": "^2.13.0",
+    "zen-observable": "^0.6.0"
   }
 }
