@@ -2,6 +2,14 @@ import transform from './transform'
 
 /**
  * Emits the first N values of an input Observable
+ *
+ * @example
+ * take(observable.of(1, 2, 3, 4), 2) // 1, 2
+ *
+ * @example
+ * // if available on Observable.prototype
+ * Observable.of('a', 'b', 'c', 'd', 'e').take(3) // a, b, c
+ *
  * @param  {Observable} input Input Observable
  * @param  {number}     n     Number of values to take
  * @return {Observable}       New Observable

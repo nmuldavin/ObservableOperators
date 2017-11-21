@@ -1,6 +1,17 @@
 /**
  * Returns a new Observable expressed as an operation on the values emitted by a single observable.
- * Usefull internally to provide repeated logic for other operations.
+ * Useful internally to provide repeated logic for other operations.
+ *
+ * @example
+ * // makes an operator that passes along values until a target value is found
+ * const takeUntilValue = (input, targetValue) => transform(input, (observer, value) => {
+ *   if (value === targetValue) {
+ *     observer.complete(value)
+ *   } else {
+ *     observer.next(value)
+ *   }
+ * })
+ *
  * @param  {Observable} input     Observable stream
  * @param  {Function}   operation Operation to perform on input stream
  * @return {Observable}           New Observable
