@@ -24,6 +24,7 @@ const addAll = target => {
 
 export {
   addAll as default,
+  addAll,
   addOperators,
   filter,
   forEach,
