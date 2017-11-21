@@ -1,7 +1,8 @@
 {
   "name": "observable-operators",
-  "version": "1.0.0",
-  "main": "src/index.js",
+  "version": "1.0.1",
+  "main": "lib/index.js",
+  "module": "src/index.js",
   "author": "Noah Muldavin <nmuldavin@gmail.com>",
   "license": "MIT",
   "scripts": {
