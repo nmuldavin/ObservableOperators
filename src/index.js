@@ -3,6 +3,7 @@ import addOperators from './addOperators'
 import filter from './filter'
 import forEach from './forEach'
 import map from './map'
+import merge from './merge'
 import reduce from './reduce'
 import scan from './scan'
 import take from './take'
@@ -14,6 +15,7 @@ const addAll = target => {
     filter,
     forEach,
     map,
+    merge,
     reduce,
     scan,
     take,
@@ -29,6 +31,7 @@ export {
   filter,
   forEach,
   map,
+  merge,
   reduce,
   scan,
   take,
