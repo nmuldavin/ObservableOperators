@@ -1,4 +1,3 @@
-import Observable from 'zen-observable'
 import { expect } from 'chai'
 import map from '../src/map'
 import apiCheck from './common/apiCheck'

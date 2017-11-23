@@ -1,4 +1,3 @@
-import Observable from 'zen-observable'
 import { expect } from 'chai'
 import forEach from '../src/forEach'
 import apiCheck from './common/apiCheck'

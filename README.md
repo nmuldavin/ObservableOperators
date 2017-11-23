@@ -4,7 +4,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/nmuldavin/ObservableOperators/badge.svg?branch=master)](https://coveralls.io/github/nmuldavin/ObservableOperators?branch=master)
 [![npm version](https://badge.fury.io/js/observable-operators.svg)](https://badge.fury.io/js/observable-operators)
 
-A library of [Reactive Operators](http://reactivex.io/documentation/operators.html) built with the [ECMAScript Observable](https://github.com/tc39/proposal-observables) from the ground up.
+A library of [Reactive Operators](http://reactivex.io/documentation/operators.html) built with [ECMAScript Observables](https://github.com/tc39/proposal-observables) from the ground up.
 
 * Flexible - Operators can be expressed in functional or fluent format
 * Small - If you want everything there's RxJS, this library should include a small subset of canonical Operators
@@ -18,6 +18,10 @@ Install with `npm` or `yarn`:
 ```
 npm install observable-operators
 ```
+
+You will need an ES Observable polyfill. Some options:
+* [zen-observable](https://github.com/zenparsing/zen-observable)
+* [any-observable](https://github.com/sindresorhus/any-observable)
 
 ## Use
 
@@ -82,4 +86,4 @@ As of now this library is set up with a very small set of Operators to get the p
 
 ## Motivation
 
-There are great existing reactive observable libraries out there already such as [most.js](https://github.com/cujojs/most) and [RxJS](https://github.com/Reactive-Extensions/RxJS), but none of them that are built from the bottom up on top of the [ECMAScript Observable](https://github.com/tc39/proposal-observables) proposal that will inevitably be part of the language very soon. This is that library.
+There are great existing reactive observable libraries out there already such as [most.js](https://github.com/cujojs/most) and [RxJS](https://github.com/Reactive-Extensions/RxJS), but none of them that are built from the bottom up on top of the [ECMAScript Observable](https://github.com/tc39/proposal-observables) proposal that will inevitably be part of the language. This is that library.

@@ -25,8 +25,22 @@
     ]
   },
   "dependencies": {},
-  "description": "A library of simple ES Observable operators",
+  "description": "A library of Reactive Operators built with ECMAScript Observables from the ground up.",
   "repository": "https://github.com/nmuldavin/ObservableOperators.git",
+  "homepage": "https://nmuldavin.github.io/ObservableOperators",
+  "keywords": [
+    "observable",
+    "observables",
+    "reactive",
+    "reactive operators",
+    "reactive programming",
+    "reactive streams",
+    "stream",
+    "streams",
+    "event stream",
+    "promise",
+    "promises"
+  ],
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.0",
