@@ -1,4 +1,3 @@
-import Observable from 'zen-observable'
 import { expect } from 'chai'
 import sinon from 'sinon'
 import merge from '../src/merge'
