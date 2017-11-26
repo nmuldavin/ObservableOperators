@@ -15,16 +15,14 @@
  */
 const addOperators = (target, operators) => {
   operators.forEach(operator => {
-    if (target[operator._name] === undefined) {
-      Object.defineProperty(target, operator._name, {
-        value: function (...args) {
-          return operator(this, ...args)
-        },
-        writable: true,
-        enumerable: false,
-        configurable: true
-      })
-    }
+    Object.defineProperty(target, operator._name, {
+      value: function (...args) {
+        return operator(this, ...args)
+      },
+      writable: true,
+      enumerable: false,
+      configurable: true
+    })
   })
 }
 

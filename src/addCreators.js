@@ -11,14 +11,12 @@
 
 const addCreators = (target, creators) =>
   creators.forEach(creator => {
-    if (target[creator._name] === undefined) {
-      Object.defineProperty(target, creator._name, {
-        value: creator,
-        writable: true,
-        enumerable: false,
-        configurable: true
-      })
-    }
+    Object.defineProperty(target, creator._name, {
+      value: creator,
+      writable: true,
+      enumerable: false,
+      configurable: true
+    })
   })
 
 export default addCreators
