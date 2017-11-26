@@ -29,8 +29,8 @@ const transform = (input, operation) =>
       error (e) {
         observer.error(e)
       },
-      complete (x) {
-        observer.complete(x)
+      complete () {
+        observer.complete()
       }
     })
   )
