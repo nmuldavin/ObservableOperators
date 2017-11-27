@@ -1,7 +1,12 @@
 import addOperators from './addOperators'
+import addCreators from './addCreators'
 
+import defer from './defer'
 import filter from './filter'
 import forEach from './forEach'
+import fromEvent from './fromEvent'
+import fromPromise from './fromPromise'
+import interval from './interval'
 import map from './map'
 import merge from './merge'
 import reduce from './reduce'
@@ -10,8 +15,10 @@ import take from './take'
 import toArray from './toArray'
 import transform from './transform'
 
-const addAll = target => {
-  addOperators(target || Observable.prototype, [
+const addAll = (target = Observable) => {
+  addCreators(target, [defer, fromEvent, fromPromise, interval])
+
+  addOperators(target.prototype, [
     filter,
     forEach,
     map,
@@ -28,8 +35,12 @@ export {
   addAll as default,
   addAll,
   addOperators,
+  defer,
   filter,
   forEach,
+  fromEvent,
+  fromPromise,
+  interval,
   map,
   merge,
   reduce,
