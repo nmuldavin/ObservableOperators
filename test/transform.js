@@ -29,10 +29,8 @@ describe('(Operator) transform', () => {
     expect(errorHandler).to.have.been.calledWith('error')
   })
 
-  it('propagates completion values from the input observable', () => {
-    const completeObservable = new Observable(observer =>
-      observer.complete('complete')
-    )
+  it('propagates complete calls from the input observable', () => {
+    const completeObservable = new Observable(observer => observer.complete())
 
     const completionHandler = sinon.spy()
 
@@ -40,7 +38,7 @@ describe('(Operator) transform', () => {
       complete: completionHandler
     })
 
-    expect(completionHandler).to.have.been.calledWith('complete')
+    expect(completionHandler).to.have.been.calledOnce
   })
 
   it('propagates errors that occur in the provided operation', () => {
