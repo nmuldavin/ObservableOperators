@@ -25,17 +25,18 @@ You will need an ES Observable polyfill. Some options:
 
 ## Use
 
-This library's default export will add all available methods to `Observable.prototype` so that they may be chained in the reactive style:
+This library's default export will add all available methods to the `Observable` constructor and prototype so that they may be chained in the reactive style:
 
 ```
 import addAll from 'observable-operators';
 
 addAll();
 
-Observable.of(1, 2, 3, 4)
-  .map(x => x + 2)
-  .filter(x => x % 2)
-  .subscribe(console.log); // 4, 6
+Observable.fromEvent(document, 'click')
+  .merge(otherClicks)
+  .map(parseEvent)
+  .filter(theOnesICareAbout)
+  .subscribe(console.log);
 ```
 
 With `require` the `addAll` method can be called inline:
@@ -44,45 +45,72 @@ With `require` the `addAll` method can be called inline:
 require('observable-operators').addAll();
 ```
 
-`Observable.prototype` *will not be modified unless this function is invoked*. If you wish to have all operators available, you should import this module somewhere high-up so that it runs before the rest of your code.
+`Observable` and `Observable.prototype` *will not be modified unless this function is invoked*. If you wish to have all operators available, you should import this module somewhere high-up so that it runs before the rest of your code.
 
 ### Specifying another target
 
-If you do not wish to modify `Observable.prototype` you can pass in a different target object:
+If you do not wish to modify the global `Observable` you can pass in a different target object:
 
 ```
-addAll(MyObservable.prototype)
+addAll(MyObservable)
 ```
 
 This will allow chaining on your custom Observable as long as it has the core methods specified in the [Observable proposal](https://github.com/tc39/proposal-observable).
 
-You could even (if you wanted) add operators to a single Observable instance:
+### Method types
 
-```
-addAll(myObservable)
-```
+This library distinguishes between `Operators` and `Creators`
+* `Operators`: Functions that take at least one Observable as input and return something else (either another Observable, a Promise, or other value). All Operators take an Observable as the first argument. This allows them to be used either directly as functions:
 
-### Functional style
+  ```
+  import { map } from 'observable-operators';
 
-If you prefer functional style rather than fluent, you can import all Operators directly. When referenced this way, the target Observable can be passed in as the first argument
+  map(Observable.of(1, 2, 3), x => x + 1)
+    .subscribe(console.log)
+  ```
 
-```
-import { map, reduce } from 'observable-operators';
+  or as chainable methods once the operators are added to `Observable.prototype`:
 
-async function average (observable) {
-  const result = await reduce(
-    map(observable, x => x * 2),
-    ({ count, sum }, val) => ({ count: count + 1, sum: sum + val }),
-    { count: 0, sum: 0 }
-  );
+  ```
+  Observable.of(1, 2, 3)
+    .map(x => x + 1)
+    .merge(otherStream)
+    .filter(isOdd)
+    .subscribe(console.log)
+  ```
 
-  return result.count / result.sum;
-}
-```
+  The helper method `addOperators` is used to add operators to `Observable.prototype` as part of the library's root method. If you wish to cherrypick operators you can do so:
+  ```
+  import { addOperators, filter, merge } from 'observable-operators'
 
-## Available Operators
+  addOperators(Observable.prototype, [filter, merge])
+  ```
 
-As of now this library is set up with a very small set of Operators to get the project going. A list of all available Operators and accompanying documentation is found [here](https://nmuldavin.github.io/ObservableOperators/). Quite clearly this is nowhere near complete, pull requests gladly accepted!
+* `Creators`: Functions that take other things as inputs and return Observables. Creators may be used directly as functions:
+
+  ```
+  import { fromEvent } from 'observable-operators'
+
+  fromEvent(document, 'click').subscribe(handleEvent)
+  ```
+
+  or once added to the `Observable` constructor, may be accessed as static methods:
+
+  ```
+  Observable.fromEvent(document, 'click').subscribe(handleEvent)
+  ```
+
+  The helper function `addCreators` is used to add creators to the Observable constructor as part of the library's root method. If you wish to cherrypick creators you may do so:
+
+  ```
+  import { addCreators, interval, fromEvent } from 'observable-operators'
+
+  addCreators(Observable, [interval, fromEvent])
+  ```
+
+## Available Methods
+
+As of now this library is set up with a very small set of Operators and Creators to get the project going. A list of all available methods and accompanying documentation is found [here](https://nmuldavin.github.io/ObservableOperators/). Quite clearly this is nowhere near complete, pull requests gladly accepted!
 
 ## Motivation
 
