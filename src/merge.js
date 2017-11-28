@@ -21,7 +21,12 @@
  * @return {Observable}    Single output Observable
  */
 const merge = (...inputs) =>
-  new Observable(observer => {
+  /**
+   * Pull Observable constructor off the first input Observable. This is to ensure
+   * that if myObservable.merge(...) is called that it will return a new Observable built off
+   * the same constructor as myObservable so that it has the same available methods
+   */
+  new inputs[0].constructor(observer => {
     let numObservers = inputs.length
 
     const subscriptions = inputs.map((operator, index) =>

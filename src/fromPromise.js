@@ -21,7 +21,12 @@ import defer from './defer'
  * @param  {Promise}    promise A Promise
  * @return {Observable} Observable
  */
-const fromPromise = promise => defer(() => promise)
+function fromPromise (promise) {
+  /**
+   * Call defer with correct context passed down
+   */
+  return defer.call(this, () => promise)
+}
 
 fromPromise._name = 'fromPromise'
 

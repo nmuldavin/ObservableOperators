@@ -9,8 +9,15 @@
  * @param  {String}     eventName Event type
  * @return {Observable} Observable sequence of events
  */
-const fromEvent = (element, eventName) =>
-  new Observable(observer => {
+function fromEvent (element, eventName) {
+  /**
+   * Pull Observable Constructor off the context if not undefined, or default to
+   * the global Observable context. This is to ensure that if MyObservable.fromEvent
+   * is called, that it will return an instance of MyObservable
+   */
+  const Constructor = this !== undefined ? this : Observable
+
+  return new Constructor(observer => {
     const handler = event => {
       observer.next(event)
     }
@@ -21,6 +28,7 @@ const fromEvent = (element, eventName) =>
       element.removeEventListener(eventName, handler)
     }
   })
+}
 
 fromEvent._name = 'fromEvent'
 
