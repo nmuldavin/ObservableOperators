@@ -102,7 +102,7 @@ This library distinguishes between `Operators` and `Creators`
 
   If used as static methods creators will return an instance of the Constructor method to which they are assigned:
   ```
-  MyObservable.interval(1) instanceOf MyObservable // true
+  MyObservable.interval(1) instanceof MyObservable // true
   ```
   If used directly as a function they will return an instance of the global Observable constructor. 
   
