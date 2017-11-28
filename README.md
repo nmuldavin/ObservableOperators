@@ -100,7 +100,7 @@ This library distinguishes between `Operators` and `Creators`
   Observable.fromEvent(document, 'click').subscribe(handleEvent)
   ```
 
-  The helper function `addCreators` is used to add creators to the Observable constructor as part of the library's root method. If you wish to cherrypick creators you may do so:
+  If used as static methods creators will return an instance of the Constructor method to which they are assigned. If used directly as a function they will return an instance of the global Observable constructor. The helper function `addCreators` is used to add creators to the Observable constructor as part of the library's root method. If you wish to cherrypick creators you may do so:
 
   ```
   import { addCreators, interval, fromEvent } from 'observable-operators'
