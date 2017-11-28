@@ -16,7 +16,7 @@ import transform from './transform'
  */
 const take = (input, n) => {
   if (n < 1) {
-    return Observable.of()
+    return input.constructor.of()
   }
 
   let count = 0

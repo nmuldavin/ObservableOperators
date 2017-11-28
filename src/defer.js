@@ -36,8 +36,15 @@
  * @param  {Function} func A function, potentially async
  * @return {Observable} Observable
  */
-const defer = func =>
-  new Observable(observer => {
+function defer (func) {
+  /**
+   * Pull Observable Constructor off the context if not undefined, or default to
+   * the global Observable context. This is to ensure that if MyObservable.defer
+   * is called, that it will return an instance of MyObservable
+   */
+  const Constructor = this !== undefined ? this : Observable
+
+  return new Constructor(observer => {
     Promise.resolve(func())
       .then(result => {
         observer.next(result)
@@ -47,6 +54,7 @@ const defer = func =>
         observer.error(e)
       })
   })
+}
 
 defer._name = 'defer'
 

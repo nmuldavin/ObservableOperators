@@ -17,7 +17,12 @@
  * @return {Observable}           New Observable
  */
 const transform = (input, operation) =>
-  new Observable(observer =>
+  /**
+   * Pull Observable constructor off the first input Observable. This is to ensure
+   * that if myObservable.transform(...) is called that it will return a new Observable built off
+   * the same constructor as myObservable so that it has the same available methods
+   */
+  new input.constructor(observer =>
     input.subscribe({
       next (value) {
         try {
