@@ -37,7 +37,7 @@
  * @return {Observable} Observable
  */
 function defer (func) {
-  /**
+  /*
    * Pull Observable Constructor off the context if not undefined, or default to
    * the global Observable context. This is to ensure that if MyObservable.defer
    * is called, that it will return an instance of MyObservable
