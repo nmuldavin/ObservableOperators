@@ -1,6 +1,7 @@
 import addOperators from './addOperators'
 import addCreators from './addCreators'
 
+import debounce from './debounce'
 import defer from './defer'
 import filter from './filter'
 import forEach from './forEach'
@@ -19,6 +20,7 @@ const addAll = (target = Observable) => {
   addCreators(target, [defer, fromEvent, fromPromise, interval])
 
   addOperators(target.prototype, [
+    debounce,
     filter,
     forEach,
     map,
@@ -35,6 +37,7 @@ export {
   addAll as default,
   addAll,
   addOperators,
+  debounce,
   defer,
   filter,
   forEach,
