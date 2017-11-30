@@ -10,7 +10,7 @@
  * @return {Observable} Observable sequence of events
  */
 function fromEvent (element, eventName) {
-  /**
+  /*
    * Pull Observable Constructor off the context if not undefined, or default to
    * the global Observable context. This is to ensure that if MyObservable.fromEvent
    * is called, that it will return an instance of MyObservable

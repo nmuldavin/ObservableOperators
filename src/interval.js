@@ -10,7 +10,7 @@
  * @return {Observable} Observable stream of integers
  */
 function interval (ms) {
-  /**
+  /*
    * Pull Observable Constructor off the context if not undefined, or default to
    * the global Observable context. This is to ensure that if MyObservable.interval
    * is called, that it will return an instance of MyObservable

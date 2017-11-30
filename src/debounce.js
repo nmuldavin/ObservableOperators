@@ -9,7 +9,11 @@
 const debounce = (input, ms) => {
   let timer
   let emitNext
-
+  /*
+   * Pull Observable constructor off the first input Observable. This is to ensure
+   * that if myObservable.transform(...) is called that it will return a new Observable built off
+   * the same constructor as myObservable so that it has the same available methods
+   */
   return new input.constructor(observer => {
     const subscription = input.subscribe({
       next (value) {

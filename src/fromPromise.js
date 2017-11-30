@@ -22,7 +22,7 @@ import defer from './defer'
  * @return {Observable} Observable
  */
 function fromPromise (promise) {
-  /**
+  /*
    * Call defer with correct context passed down
    */
   return defer.call(this, () => promise)
