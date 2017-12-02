@@ -4,6 +4,7 @@ import addCreators from './addCreators';
 import debounce from './debounce';
 import defer from './defer';
 import filter from './filter';
+import flatMap from './flatMap';
 import forEach from './forEach';
 import fromEvent from './fromEvent';
 import fromPromise from './fromPromise';
@@ -22,6 +23,7 @@ const addAll = (target = Observable) => {
   addOperators(target.prototype, [
     debounce,
     filter,
+    flatMap,
     forEach,
     map,
     merge,
@@ -40,6 +42,7 @@ export {
   debounce,
   defer,
   filter,
+  flatMap,
   forEach,
   fromEvent,
   fromPromise,
