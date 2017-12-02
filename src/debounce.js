@@ -2,6 +2,15 @@
  * [Debounces](https://davidwalsh.name/javascript-debounce-function) an Observable stream
  * by a specified number of milliseconds.
  *
+ * @example
+ * debounce(clickEvents, 300)
+ *
+ * @example
+ * // if available on Observable.prototype
+ * clickEvents
+ *   .debounce(300)
+ *   .map(handler)
+ *
  * @param  {Observable} input Input Observable
  * @param  {number}     ms    Milliseconds to debounce by
  * @return {Observable} Debounced Observable
