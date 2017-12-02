@@ -1,4 +1,4 @@
-import transform from './transform'
+import transform from './transform';
 
 /**
  * Returns a new Observable that emits only the values of the input Observable for which
@@ -18,10 +18,10 @@ import transform from './transform'
 const filter = (input, fn) =>
   transform(input, (observer, value) => {
     if (fn(value)) {
-      observer.next(value)
+      observer.next(value);
     }
-  })
+  });
 
-filter._name = 'filter'
+filter._name = 'filter';
 
-export default filter
+export default filter;

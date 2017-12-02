@@ -7,8 +7,8 @@
  * @return {Observable} Debounced Observable
  */
 const debounce = (input, ms) => {
-  let timer
-  let emitNext
+  let timer;
+  let emitNext;
   /*
    * Pull Observable constructor off the first input Observable. This is to ensure
    * that if myObservable.transform(...) is called that it will return a new Observable built off
@@ -16,37 +16,37 @@ const debounce = (input, ms) => {
    */
   return new input.constructor(observer => {
     const subscription = input.subscribe({
-      next (value) {
-        clearTimeout(timer)
+      next(value) {
+        clearTimeout(timer);
 
-        emitNext = () => observer.next(value)
+        emitNext = () => observer.next(value);
 
         timer = setTimeout(() => {
-          emitNext()
-          emitNext = undefined
-        }, ms)
+          emitNext();
+          emitNext = undefined;
+        }, ms);
       },
-      error (e) {
-        observer.error(e)
+      error(e) {
+        observer.error(e);
       },
-      complete () {
-        clearTimeout(timer)
+      complete() {
+        clearTimeout(timer);
 
         if (emitNext) {
-          emitNext()
+          emitNext();
         }
 
-        observer.complete()
-      }
-    })
+        observer.complete();
+      },
+    });
 
     return () => {
-      clearTimeout(timer)
-      subscription.unsubscribe()
-    }
-  })
-}
+      clearTimeout(timer);
+      subscription.unsubscribe();
+    };
+  });
+};
 
-debounce._name = 'debounce'
+debounce._name = 'debounce';
 
-export default debounce
+export default debounce;

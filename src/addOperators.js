@@ -16,14 +16,14 @@
 const addOperators = (target, operators) => {
   operators.forEach(operator => {
     Object.defineProperty(target, operator._name, {
-      value: function (...args) {
-        return operator(this, ...args)
+      value(...args) {
+        return operator(this, ...args);
       },
       writable: true,
       enumerable: false,
-      configurable: true
-    })
-  })
-}
+      configurable: true,
+    });
+  });
+};
 
-export default addOperators
+export default addOperators;

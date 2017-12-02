@@ -1,4 +1,4 @@
-import transform from './transform'
+import transform from './transform';
 
 /**
  * Returns a new Observable that emits the result of a provided function applied to each
@@ -16,8 +16,8 @@ import transform from './transform'
  * @return {Observable}       New observable with mapped values
  */
 const map = (input, fn) =>
-  transform(input, (observer, value) => observer.next(fn(value)))
+  transform(input, (observer, value) => observer.next(fn(value)));
 
-map._name = 'map'
+map._name = 'map';
 
-export default map
+export default map;

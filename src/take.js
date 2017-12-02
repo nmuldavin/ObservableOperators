@@ -1,4 +1,4 @@
-import transform from './transform'
+import transform from './transform';
 
 /**
  * Emits the first N values of an input Observable
@@ -16,21 +16,21 @@ import transform from './transform'
  */
 const take = (input, n) => {
   if (n < 1) {
-    return input.constructor.of()
+    return input.constructor.of();
   }
 
-  let count = 0
+  let count = 0;
 
   return transform(input, (observer, value) => {
-    count = count + 1
-    observer.next(value)
+    count += 1;
+    observer.next(value);
 
     if (count >= n) {
-      observer.complete()
+      observer.complete();
     }
-  })
-}
+  });
+};
 
-take._name = 'take'
+take._name = 'take';
 
-export default take
+export default take;

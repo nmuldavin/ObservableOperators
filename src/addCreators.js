@@ -15,8 +15,8 @@ const addCreators = (target, creators) =>
       value: creator,
       writable: true,
       enumerable: false,
-      configurable: true
-    })
-  })
+      configurable: true,
+    });
+  });
 
-export default addCreators
+export default addCreators;

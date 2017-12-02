@@ -27,33 +27,33 @@ const merge = (...inputs) =>
    * the same constructor as myObservable so that it has the same available methods
    */
   new inputs[0].constructor(observer => {
-    let numObservers = inputs.length
+    let numObservers = inputs.length;
 
-    const subscriptions = inputs.map((operator, index) =>
+    const subscriptions = inputs.map(operator =>
       operator.subscribe({
-        next (value) {
-          observer.next(value)
+        next(value) {
+          observer.next(value);
         },
-        error (e) {
-          observer.error(e)
+        error(e) {
+          observer.error(e);
         },
-        complete () {
-          numObservers = numObservers - 1
+        complete() {
+          numObservers -= 1;
 
           if (numObservers === 0) {
-            observer.complete()
+            observer.complete();
           }
-        }
-      })
-    )
+        },
+      }),
+    );
 
     return () => {
       subscriptions.forEach(subscription => {
-        subscription.unsubscribe()
-      })
-    }
-  })
+        subscription.unsubscribe();
+      });
+    };
+  });
 
-merge._name = 'merge'
+merge._name = 'merge';
 
-export default merge
+export default merge;

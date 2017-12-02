@@ -1,4 +1,4 @@
-import defer from './defer'
+import defer from './defer';
 /**
  * Transforms a Promise in to an Observable that emits a single value upon
  * Promise resolution. The Observable will error if the promise does. This method
@@ -21,13 +21,13 @@ import defer from './defer'
  * @param  {Promise}    promise A Promise
  * @return {Observable} Observable
  */
-function fromPromise (promise) {
+function fromPromise(promise) {
   /*
    * Call defer with correct context passed down
    */
-  return defer.call(this, () => promise)
+  return defer.call(this, () => promise);
 }
 
-fromPromise._name = 'fromPromise'
+fromPromise._name = 'fromPromise';
 
-export default fromPromise
+export default fromPromise;

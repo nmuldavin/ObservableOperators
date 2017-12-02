@@ -24,22 +24,22 @@ const transform = (input, operation) =>
    */
   new input.constructor(observer =>
     input.subscribe({
-      next (value) {
+      next(value) {
         try {
-          operation(observer, value)
+          operation(observer, value);
         } catch (e) {
-          observer.error(e)
+          observer.error(e);
         }
       },
-      error (e) {
-        observer.error(e)
+      error(e) {
+        observer.error(e);
       },
-      complete () {
-        observer.complete()
-      }
-    })
-  )
+      complete() {
+        observer.complete();
+      },
+    }),
+  );
 
-transform._name = 'transform'
+transform._name = 'transform';
 
-export default transform
+export default transform;
