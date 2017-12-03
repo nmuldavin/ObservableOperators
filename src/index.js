@@ -1,6 +1,7 @@
 import addOperators from './addOperators';
 import addCreators from './addCreators';
 
+import catchError from './catchError';
 import debounce from './debounce';
 import defer from './defer';
 import filter from './filter';
@@ -21,6 +22,7 @@ const addAll = (target = Observable) => {
   addCreators(target, [defer, fromEvent, fromPromise, interval]);
 
   addOperators(target.prototype, [
+    catchError,
     debounce,
     filter,
     flatMap,
@@ -39,6 +41,7 @@ export {
   addAll as default,
   addAll,
   addOperators,
+  catchError,
   debounce,
   defer,
   filter,
