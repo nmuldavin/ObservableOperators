@@ -4,6 +4,7 @@ import addCreators from './addCreators';
 import catchError from './catchError';
 import debounce from './debounce';
 import defer from './defer';
+import error from './error';
 import filter from './filter';
 import flatMap from './flatMap';
 import forEach from './forEach';
@@ -19,7 +20,7 @@ import toArray from './toArray';
 import transform from './transform';
 
 const addAll = (target = Observable) => {
-  addCreators(target, [defer, fromEvent, fromPromise, interval]);
+  addCreators(target, [defer, error, fromEvent, fromPromise, interval]);
 
   addOperators(target.prototype, [
     catchError,
@@ -44,6 +45,7 @@ export {
   catchError,
   debounce,
   defer,
+  error,
   filter,
   flatMap,
   forEach,
