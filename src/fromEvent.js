@@ -15,7 +15,7 @@ function fromEvent(element, eventName) {
    * the global Observable context. This is to ensure that if MyObservable.fromEvent
    * is called, that it will return an instance of MyObservable
    */
-  const Constructor = this !== undefined ? this : Observable;
+  const Constructor = this || Observable;
 
   return new Constructor(observer => {
     const handler = event => {

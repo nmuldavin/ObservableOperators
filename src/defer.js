@@ -42,7 +42,7 @@ function defer(func) {
    * the global Observable context. This is to ensure that if MyObservable.defer
    * is called, that it will return an instance of MyObservable
    */
-  const Constructor = this !== undefined ? this : Observable;
+  const Constructor = this || Observable;
 
   return new Constructor(observer => {
     Promise.resolve(func())
