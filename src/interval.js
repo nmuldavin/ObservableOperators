@@ -15,7 +15,7 @@ function interval(ms) {
    * the global Observable context. This is to ensure that if MyObservable.interval
    * is called, that it will return an instance of MyObservable
    */
-  const Constructor = this !== undefined ? this : Observable;
+  const Constructor = this || Observable;
 
   return new Constructor(observer => {
     let count = 0;
