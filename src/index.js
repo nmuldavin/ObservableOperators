@@ -16,6 +16,7 @@ import map from './map';
 import merge from './merge';
 import reduce from './reduce';
 import scan from './scan';
+import skip from './skip';
 import startWith from './startWith';
 import take from './take';
 import toArray from './toArray';
@@ -35,6 +36,7 @@ const addAll = (target = Observable) => {
     merge,
     reduce,
     scan,
+    skip,
     startWith,
     take,
     toArray,
@@ -61,6 +63,7 @@ export {
   merge,
   reduce,
   scan,
+  skip,
   startWith,
   take,
   toArray,
