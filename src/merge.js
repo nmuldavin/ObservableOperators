@@ -48,9 +48,7 @@ const merge = (...inputs) =>
     );
 
     return () => {
-      subscriptions.forEach(subscription => {
-        subscription.unsubscribe();
-      });
+      subscriptions.forEach(subscription => subscription.unsubscribe());
     };
   });
 

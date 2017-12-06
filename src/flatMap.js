@@ -29,7 +29,7 @@
  */
 const flatMap = (input, fn) =>
   new Observable(observer => {
-    const subscriptions = [];
+    const subscriptions = new Map();
     let completed;
 
     const rootSubscription = input.subscribe({
@@ -39,7 +39,11 @@ const flatMap = (input, fn) =>
         try {
           mapped = fn(value);
 
-          const subscription = input.constructor.from(mapped).subscribe({
+          input.constructor.from(mapped).subscribe({
+            start(subs) {
+              this.subscription = subs;
+              subscriptions.set(this.subscription, true);
+            },
             next(val) {
               observer.next(val);
             },
@@ -47,16 +51,13 @@ const flatMap = (input, fn) =>
               observer.error(e);
             },
             complete() {
-              const index = subscriptions.indexOf(subscription);
+              subscriptions.delete(this.subscription);
 
-              subscriptions.splice(index, 1);
-
-              if (completed && subscriptions.length === 0) {
+              if (completed && subscriptions.size === 0) {
                 observer.complete();
               }
             },
           });
-          subscriptions.push(subscription);
         } catch (e) {
           observer.error(e);
         }
@@ -74,7 +75,7 @@ const flatMap = (input, fn) =>
     });
 
     return () => {
-      subscriptions.forEach(subscription => subscription.unsubscribe());
+      subscriptions.forEach((_, subscription) => subscription.unsubscribe());
       rootSubscription.unsubscribe();
     };
   });
