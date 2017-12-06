@@ -17,6 +17,7 @@ import merge from './merge';
 import reduce from './reduce';
 import scan from './scan';
 import skip from './skip';
+import skipLast from './skipLast';
 import startWith from './startWith';
 import take from './take';
 import takeLast from './takeLast';
@@ -38,6 +39,7 @@ const addAll = (target = Observable) => {
     reduce,
     scan,
     skip,
+    skipLast,
     startWith,
     take,
     takeLast,
@@ -66,6 +68,7 @@ export {
   reduce,
   scan,
   skip,
+  skipLast,
   startWith,
   take,
   takeLast,
