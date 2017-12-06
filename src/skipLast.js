@@ -15,7 +15,7 @@
 const skipLast = (input, n) => {
   const values = [];
 
-  return new Observable(observer =>
+  return new input.constructor(observer =>
     input.subscribe({
       next(value) {
         values.push(value);
