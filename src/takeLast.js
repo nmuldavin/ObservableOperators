@@ -15,7 +15,7 @@
 const takeLast = (input, n) => {
   const lastValues = [];
 
-  return new Observable(observer =>
+  return new input.constructor(observer =>
     input.subscribe({
       next(value) {
         if (lastValues.length < n) {
