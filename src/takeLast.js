@@ -1,5 +1,5 @@
 /**
- * Leaves off the last N values of an Observable
+ * Takes the last N values of an Observable
  *
  * @example
  * takeLast(observable.of(1, 2, 3, 4), 2) // 3, 4
@@ -9,7 +9,7 @@
  * Observable.of('a', 'b', 'c', 'd', 'e').takeLast(3) // c, d, e
  *
  * @param  {Observable} input Input Observable
- * @param  {number}     n     Number of values to leave off the end
+ * @param  {number}     n     Number of values to take at the end
  * @return {Observable}       New Observable
  */
 const takeLast = (input, n) => {
