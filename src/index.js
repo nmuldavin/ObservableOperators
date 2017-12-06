@@ -19,6 +19,7 @@ import scan from './scan';
 import skip from './skip';
 import startWith from './startWith';
 import take from './take';
+import takeLast from './takeLast';
 import toArray from './toArray';
 import transform from './transform';
 
@@ -39,6 +40,7 @@ const addAll = (target = Observable) => {
     skip,
     startWith,
     take,
+    takeLast,
     toArray,
     transform,
   ]);
@@ -66,6 +68,7 @@ export {
   skip,
   startWith,
   take,
+  takeLast,
   toArray,
   transform,
 };
