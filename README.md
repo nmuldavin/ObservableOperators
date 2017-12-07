@@ -104,8 +104,8 @@ This library distinguishes between `Operators` and `Creators`
   ```
   MyObservable.interval(1) instanceof MyObservable // true
   ```
-  If used directly as a function they will return an instance of the global Observable constructor. 
-  
+  If used directly as a function they will return an instance of the global Observable constructor.
+
   The helper function `addCreators` is used to add creators to the Observable constructor as part of the library's root method. If you wish to cherrypick creators you may do so:
 
   ```
@@ -116,8 +116,36 @@ This library distinguishes between `Operators` and `Creators`
 
 ## Available Methods
 
-As of now this library is set up with a very small set of Operators and Creators to get the project going. A list of all available methods and accompanying documentation is found [here](https://nmuldavin.github.io/ObservableOperators/). Quite clearly this is nowhere near complete, pull requests gladly accepted!
+### Creators
+* [defer](https://nmuldavin.github.io/ObservableOperators/#defer)
+* [error](https://nmuldavin.github.io/ObservableOperators/#error)
+* [fromEvent](https://nmuldavin.github.io/ObservableOperators/#fromEvent)
+* [fromPromise](https://nmuldavin.github.io/ObservableOperators/#fromPromise)
+* [interval](https://nmuldavin.github.io/ObservableOperators/#interval)
+
+### Operators
+* [catchError](https://nmuldavin.github.io/ObservableOperators/#catcherror)
+* [concat](https://nmuldavin.github.io/ObservableOperators/#concat)
+* [debounce](https://nmuldavin.github.io/ObservableOperators/#debounce)
+* [delay](https://nmuldavin.github.io/ObservableOperators/#delay)
+* [filter](https://nmuldavin.github.io/ObservableOperators/#filter)
+* [flatMap](https://nmuldavin.github.io/ObservableOperators/#flatmap)
+* [forEach](https://nmuldavin.github.io/ObservableOperators/#foreach)
+* [map](https://nmuldavin.github.io/ObservableOperators/#map)
+* [merge](https://nmuldavin.github.io/ObservableOperators/#merge)
+* [reduce](https://nmuldavin.github.io/ObservableOperators/#reduce)
+* [scan](https://nmuldavin.github.io/ObservableOperators/#scan)
+* [skip](https://nmuldavin.github.io/ObservableOperators/#skip)
+* [skipLast](https://nmuldavin.github.io/ObservableOperators/#skiplast)
+* [skipUntil](https://nmuldavin.github.io/ObservableOperators/#skipUntil)
+* [startWith](https://nmuldavin.github.io/ObservableOperators/#startWith)
+* [take](https://nmuldavin.github.io/ObservableOperators/#take)
+* [takeLast](https://nmuldavin.github.io/ObservableOperators/#takeLast)
+* [takeUntil](https://nmuldavin.github.io/ObservableOperators/#takeUntil)
+* [throttle](https://nmuldavin.github.io/ObservableOperators/#throttle)
+* [toArray](https://nmuldavin.github.io/ObservableOperators/#toarray)
+* [transform](https://nmuldavin.github.io/ObservableOperators/#transform)
 
 ## Motivation
 
-There are great existing reactive observable libraries out there already such as [most.js](https://github.com/cujojs/most) and [RxJS](https://github.com/Reactive-Extensions/RxJS), but none of them that are built from the bottom up on top of the [ECMAScript Observable](https://github.com/tc39/proposal-observables) proposal that will inevitably be part of the language. This is that library.
+There are great existing reactive observable libraries out there already such as [most.js](https://github.com/cujojs/most) and [RxJS](https://github.com/Reactive-Extensions/RxJS), but none of them that are built from the bottom up on top of the [ECMAScript Observable](https://github.com/tc39/proposal-observables) proposal that will (hopefully) be part of the language.
