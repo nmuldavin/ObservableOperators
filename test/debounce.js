@@ -72,4 +72,15 @@ describe('(Operator) debounce', () => {
 
     expect(outputSpy).to.not.have.been.called;
   });
+
+  it('propagates errors from the input observable', () => {
+    const errorObservable = new Observable(observer => observer.error('error'));
+    const errorHandler = sinon.spy();
+
+    debounce(errorObservable, 50).subscribe({
+      error: errorHandler,
+    });
+
+    expect(errorHandler).to.have.been.calledWith('error');
+  });
 });
