@@ -5,6 +5,7 @@ import catchError from './catchError';
 import concat from './concat';
 import debounce from './debounce';
 import defer from './defer';
+import delay from './delay';
 import error from './error';
 import filter from './filter';
 import flatMap from './flatMap';
@@ -34,6 +35,7 @@ const addAll = (target = Observable) => {
     catchError,
     concat,
     debounce,
+    delay,
     filter,
     flatMap,
     forEach,
@@ -62,6 +64,7 @@ export {
   concat,
   debounce,
   defer,
+  delay,
   error,
   filter,
   flatMap,
