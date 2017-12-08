@@ -4,10 +4,10 @@
 [![Coverage Status](https://coveralls.io/repos/github/nmuldavin/ObservableOperators/badge.svg?branch=master)](https://coveralls.io/github/nmuldavin/ObservableOperators?branch=master)
 [![npm version](https://badge.fury.io/js/observable-operators.svg)](https://badge.fury.io/js/observable-operators)
 
-A library of [Reactive Operators](http://reactivex.io/documentation/operators.html) built with [ECMAScript Observables](https://github.com/tc39/proposal-observables) from the ground up.
+A library of [Reactive Operators](http://reactivex.io/documentation/operators.html) built with [ECMAScript Observables](https://github.com/tc39/proposal-observable) from the ground up.
 
 * Flexible - Operators can be expressed in functional or fluent format
-* Small - If you want everything there's RxJS, this library should include a small subset of canonical Operators
+* Small - If you want everything there's RxJS, this library has a small set of canonical operators
 * Well [documented](https://nmuldavin.github.io/ObservableOperators/)
 
 
@@ -19,9 +19,7 @@ Install with `npm` or `yarn`:
 npm install observable-operators
 ```
 
-You will need an ES Observable polyfill. Some options:
-* [zen-observable](https://github.com/zenparsing/zen-observable)
-* [any-observable](https://github.com/sindresorhus/any-observable)
+You will need an ES Observable polyfill. I recommend [zen-observable](https://github.com/zenparsing/zen-observable).
 
 ## Use
 
@@ -119,8 +117,8 @@ This library distinguishes between `Operators` and `Creators`
 ### Creators
 * [defer](https://nmuldavin.github.io/ObservableOperators/#defer)
 * [error](https://nmuldavin.github.io/ObservableOperators/#error)
-* [fromEvent](https://nmuldavin.github.io/ObservableOperators/#fromEvent)
-* [fromPromise](https://nmuldavin.github.io/ObservableOperators/#fromPromise)
+* [fromEvent](https://nmuldavin.github.io/ObservableOperators/#fromevent)
+* [fromPromise](https://nmuldavin.github.io/ObservableOperators/#frompromise)
 * [interval](https://nmuldavin.github.io/ObservableOperators/#interval)
 
 ### Operators
@@ -137,15 +135,15 @@ This library distinguishes between `Operators` and `Creators`
 * [scan](https://nmuldavin.github.io/ObservableOperators/#scan)
 * [skip](https://nmuldavin.github.io/ObservableOperators/#skip)
 * [skipLast](https://nmuldavin.github.io/ObservableOperators/#skiplast)
-* [skipUntil](https://nmuldavin.github.io/ObservableOperators/#skipUntil)
-* [startWith](https://nmuldavin.github.io/ObservableOperators/#startWith)
+* [skipUntil](https://nmuldavin.github.io/ObservableOperators/#skipuntil)
+* [startWith](https://nmuldavin.github.io/ObservableOperators/#startwith)
 * [take](https://nmuldavin.github.io/ObservableOperators/#take)
-* [takeLast](https://nmuldavin.github.io/ObservableOperators/#takeLast)
-* [takeUntil](https://nmuldavin.github.io/ObservableOperators/#takeUntil)
+* [takeLast](https://nmuldavin.github.io/ObservableOperators/#takelast)
+* [takeUntil](https://nmuldavin.github.io/ObservableOperators/#takeuntil)
 * [throttle](https://nmuldavin.github.io/ObservableOperators/#throttle)
 * [toArray](https://nmuldavin.github.io/ObservableOperators/#toarray)
 * [transform](https://nmuldavin.github.io/ObservableOperators/#transform)
 
 ## Motivation
 
-There are great existing reactive observable libraries out there already such as [most.js](https://github.com/cujojs/most) and [RxJS](https://github.com/Reactive-Extensions/RxJS), but none of them that are built from the bottom up on top of the [ECMAScript Observable](https://github.com/tc39/proposal-observables) proposal that will (hopefully) be part of the language.
+There are great existing reactive observable libraries out there already such as [most.js](https://github.com/cujojs/most) and [RxJS](https://github.com/Reactive-Extensions/RxJS), but none of them that are built from the bottom up on top of the [ECMAScript Observable](https://github.com/tc39/proposal-observables) proposal that will (hopefully) be part of the language. This is that library.
