@@ -1,6 +1,6 @@
 {
   "name": "observable-operators",
-  "version": "1.7.1",
+  "version": "1.7.2",
   "main": "lib/index.js",
   "module": "src/index.js",
   "author": "Noah Muldavin <nmuldavin@gmail.com>",
@@ -11,6 +11,7 @@
     "lint": "eslint src test",
     "format": "eslint --fix src test && prettier --single-quote --trailing-comma=all --write --list-different '{src,test}/**/*.js'",
     "precommit": "lint-staged",
+    "prepublish": "yarn build && yarn docs",
     "test": "mocha --opts ./mocha.opts",
     "test:coverage": "nyc --reporter=lcov --reporter=text mocha --opts ./mocha.opts"
   },
