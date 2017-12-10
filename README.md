@@ -102,7 +102,12 @@ This library distinguishes between `Operators` and `Creators`
   ```
   MyObservable.interval(1) instanceof MyObservable // true
   ```
-  If used directly as a function they will return an instance of the global Observable constructor.
+  If used directly as a function, a Constructor may be passed in as an optional final argument:
+  ```
+    interval(1000, MyObservable) instanceof MyObservable // true
+  ```
+
+  By default, creators will return an instance of the global Observable.
 
   The helper function `addCreators` is used to add creators to the Observable constructor as part of the library's root method. If you wish to cherrypick creators you may do so:
 

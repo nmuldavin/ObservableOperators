@@ -11,16 +11,14 @@
  *  .flatMap(value => Observable.error(value))
  *  .subscribe(observer)
  *
- * @param  {*}          e Error value
+ * @param  {*}          e           Error value
+ * @param  {Function}   Constructor Observable constructor
  * @return {Observable} New Observable
  */
-function error(e) {
-  const Constructor = this || Observable;
-
-  return new Constructor(observer => {
+const error = (e, Constructor = Observable) =>
+  new Constructor(observer => {
     observer.error(e);
   });
-}
 
 error._name = 'error';
 

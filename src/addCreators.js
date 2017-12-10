@@ -1,18 +1,18 @@
 /**
- * Adds an array of methods to the specified target object. Does not modify
- * the functions (unlike {@link addOperators}).
+ * Adds an array of methods to the specified target Constructor, passing in the
+ * Constructor itself as the last argument to each.
  * @example
  * // adding creators to Observable so you can call Observable.fromPromise(), etc
  * addCreators(Observable, [fromEvent, fromPromise])
  *
- * @param {Object}          target   Target Object
+ * @param {Constructor}          target   Target Object
  * @param {Array<Function>} creators Array of functions
  */
 
-const addCreators = (target, creators) =>
+const addCreators = (Constructor, creators) =>
   creators.forEach(creator => {
-    Object.defineProperty(target, creator._name, {
-      value: creator,
+    Object.defineProperty(Constructor, creator._name, {
+      value: (...args) => creator(...args.concat(Constructor)),
       writable: true,
       enumerable: false,
       configurable: true,

@@ -19,14 +19,11 @@ import defer from './defer';
  * Observable.fromPromise(makeCall()).subscribe(console.log)
  *
  * @param  {Promise}    promise A Promise
+ * @param  {Function}   Constructor Observable constructor
  * @return {Observable} Observable
  */
-function fromPromise(promise) {
-  /*
-   * Call defer with correct context passed down
-   */
-  return defer.call(this, () => promise);
-}
+const fromPromise = (promise, Constructor = Observable) =>
+  defer(() => promise, Constructor);
 
 fromPromise._name = 'fromPromise';
 

@@ -5,19 +5,13 @@
  * @example
  * Observable.fromEvent(button, 'click').subscribe(handleClick)
  *
- * @param  {Element}    element   Dom element to listen on
- * @param  {String}     eventName Event type
+ * @param  {Element}    element     Dom element to listen on
+ * @param  {String}     eventName   Event type
+ * @param  {Function}   Constructor Observable constructor
  * @return {Observable} Observable sequence of events
  */
-function fromEvent(element, eventName) {
-  /*
-   * Pull Observable Constructor off the context if not undefined, or default to
-   * the global Observable context. This is to ensure that if MyObservable.fromEvent
-   * is called, that it will return an instance of MyObservable
-   */
-  const Constructor = this || Observable;
-
-  return new Constructor(observer => {
+const fromEvent = (element, eventName, Constructor = Observable) =>
+  new Constructor(observer => {
     const handler = event => {
       observer.next(event);
     };
@@ -28,7 +22,6 @@ function fromEvent(element, eventName) {
       element.removeEventListener(eventName, handler);
     };
   });
-}
 
 fromEvent._name = 'fromEvent';
 

@@ -33,18 +33,12 @@
  *
  * Observable.defer(doExpensiveSynchronousThing).subscribe(...)
  *
- * @param  {Function} func A function, potentially async
+ * @param  {Function}   func        A function, potentially async
+ * @param  {Function}   Constructor Observable constructor
  * @return {Observable} Observable
  */
-function defer(func) {
-  /*
-   * Pull Observable Constructor off the context if not undefined, or default to
-   * the global Observable context. This is to ensure that if MyObservable.defer
-   * is called, that it will return an instance of MyObservable
-   */
-  const Constructor = this || Observable;
-
-  return new Constructor(observer => {
+const defer = (func, Constructor = Observable) =>
+  new Constructor(observer => {
     Promise.resolve(func())
       .then(result => {
         observer.next(result);
@@ -54,7 +48,6 @@ function defer(func) {
         observer.error(e);
       });
   });
-}
 
 defer._name = 'defer';
 
