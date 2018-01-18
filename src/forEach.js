@@ -24,19 +24,19 @@
 const forEach = (input, fn) =>
   new Promise((resolve, reject) => {
     const subscription = input.subscribe({
-      next (value) {
+      next(value) {
         try {
-          fn(value)
+          fn(value);
         } catch (e) {
-          reject(e)
-          subscription.unsubscribe()
+          reject(e);
+          subscription.unsubscribe();
         }
       },
       error: reject,
-      complete: resolve
-    })
-  })
+      complete: resolve,
+    });
+  });
 
-forEach._name = 'forEach'
+forEach._name = 'forEach';
 
-export default forEach
+export default forEach;

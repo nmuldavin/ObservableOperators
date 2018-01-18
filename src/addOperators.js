@@ -15,10 +15,15 @@
  */
 const addOperators = (target, operators) => {
   operators.forEach(operator => {
-    target[operator._name] = function (...args) {
-      return operator(this, ...args)
-    }
-  })
-}
+    Object.defineProperty(target, operator._name, {
+      value(...args) {
+        return operator(this, ...args);
+      },
+      writable: true,
+      enumerable: false,
+      configurable: true,
+    });
+  });
+};
 
-export default addOperators
+export default addOperators;

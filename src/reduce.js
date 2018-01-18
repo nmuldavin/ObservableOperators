@@ -24,24 +24,24 @@
  */
 const reduce = (input, fn, initial) =>
   new Promise((resolve, reject) => {
-    let accumulation = initial
+    let accumulation = initial;
 
     const subscription = input.subscribe({
-      next (value) {
+      next(value) {
         try {
-          accumulation = fn(accumulation, value)
+          accumulation = fn(accumulation, value);
         } catch (e) {
-          reject(e)
-          subscription.unsubscribe()
+          reject(e);
+          subscription.unsubscribe();
         }
       },
       error: reject,
-      complete () {
-        resolve(accumulation)
-      }
-    })
-  })
+      complete() {
+        resolve(accumulation);
+      },
+    });
+  });
 
-reduce._name = 'reduce'
+reduce._name = 'reduce';
 
-export default reduce
+export default reduce;

@@ -1,4 +1,4 @@
-import transform from './transform'
+import transform from './transform';
 
 /**
  * Returns a new observable containing incrementally accumulated values, starting with the provided
@@ -17,14 +17,14 @@ import transform from './transform'
  * @return {Observable}         New Observable of accumulated values
  */
 const scan = (input, fn, initial) => {
-  let accumulation = initial
+  let accumulation = initial;
 
   return transform(input, (observer, value) => {
-    accumulation = fn(accumulation, value)
-    observer.next(accumulation)
-  })
-}
+    accumulation = fn(accumulation, value);
+    observer.next(accumulation);
+  });
+};
 
-scan._name = 'scan'
+scan._name = 'scan';
 
-export default scan
+export default scan;

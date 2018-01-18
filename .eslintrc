@@ -1,6 +1,32 @@
 {
-  "extends": "standard",
+  "extends": [
+    "airbnb-base",
+    "prettier"
+  ],
+  env: {
+    browser: true,
+    node: true,
+  },
+  "plugins": ["prettier"],
   "globals": {
     "Observable": true
+  },
+  "rules": {
+    "no-underscore-dangle": 0,
+    "prettier/prettier": [
+      "error",
+      {
+        "singleQuote": true,
+        "trailingComma": "all",
+      },
+    ],
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": true,
+        "optionalDependencies": true,
+        "peerDependencies": true
+      }
+    ]
   }
 }
