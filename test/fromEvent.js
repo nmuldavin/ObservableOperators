@@ -10,8 +10,8 @@ describe('(Creator) fromEvent', () => {
   sinon.spy(element, 'removeEventListener');
 
   afterEach(() => {
-    element.addEventListener.reset();
-    element.removeEventListener.reset();
+    element.addEventListener.resetHistory();
+    element.removeEventListener.resetHistory();
   });
 
   after(() => {
