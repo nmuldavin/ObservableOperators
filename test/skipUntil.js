@@ -52,24 +52,34 @@ describe('(Operator) skipUntil', () => {
     expect(observedValues).to.eql([]);
   });
 
-  it('propagates errors from the input observable', () => {
+  it('propagates errors from the input observable', async () => {
     const errorObservable = new Observable(observer => observer.error('error'));
     const errorHandler = sinon.spy();
 
-    skipUntil(errorObservable, signal).subscribe({
-      error: errorHandler,
-    });
+    await new Promise(resolve =>
+      skipUntil(errorObservable, signal).subscribe({
+        error(e) {
+          errorHandler(e);
+          resolve();
+        },
+      }),
+    );
 
     expect(errorHandler).to.have.been.calledWith('error');
   });
 
-  it('propagates errors from the signal observable', () => {
+  it('propagates errors from the signal observable', async () => {
     const errorObservable = new Observable(observer => observer.error('error'));
     const errorHandler = sinon.spy();
 
-    skipUntil(Observable.of(1, 2, 3), errorObservable).subscribe({
-      error: errorHandler,
-    });
+    await new Promise(resolve =>
+      skipUntil(Observable.of(1, 2, 3), errorObservable).subscribe({
+        error(e) {
+          errorHandler(e);
+          resolve();
+        },
+      }),
+    );
 
     expect(errorHandler).to.have.been.calledWith('error');
   });

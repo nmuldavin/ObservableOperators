@@ -29,35 +29,33 @@
  */
 const flatMap = (input, fn) =>
   new Observable(observer => {
-    const subscriptions = new Set();
+    const subscriptions = new Map();
     let completed;
+    let index = 0;
 
     const rootSubscription = input.subscribe({
       next(value) {
-        let mapped;
-
+        const thisIndex = index;
         try {
-          mapped = fn(value);
+          subscriptions.set(
+            thisIndex,
+            input.constructor.from(fn(value)).subscribe({
+              next(val) {
+                observer.next(val);
+              },
+              error(e) {
+                observer.error(e);
+              },
+              complete() {
+                subscriptions.delete(thisIndex);
 
-          input.constructor.from(mapped).subscribe({
-            start(subs) {
-              this.subscription = subs;
-              subscriptions.add(this.subscription);
-            },
-            next(val) {
-              observer.next(val);
-            },
-            error(e) {
-              observer.error(e);
-            },
-            complete() {
-              subscriptions.delete(this.subscription);
-
-              if (completed && subscriptions.size === 0) {
-                observer.complete();
-              }
-            },
-          });
+                if (completed && subscriptions.size === 0) {
+                  observer.complete();
+                }
+              },
+            }),
+          );
+          index += 1;
         } catch (e) {
           observer.error(e);
         }
@@ -68,7 +66,7 @@ const flatMap = (input, fn) =>
       complete() {
         completed = true;
 
-        if (subscriptions.length === 0) {
+        if (subscriptions.size === 0) {
           observer.complete();
         }
       },

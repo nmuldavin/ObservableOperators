@@ -27,7 +27,7 @@ describe('(Operator) catchError', () => {
     expect(errorHandler).to.not.have.been.called;
   });
 
-  it('replaces stream with new Observable on error', () => {
+  it('replaces stream with new Observable on error', async () => {
     const source = new Observable(observer => {
       observer.next(1);
       observer.next(2);
@@ -36,31 +36,45 @@ describe('(Operator) catchError', () => {
 
     const outputValues = [];
 
-    catchError(source, () => Observable.of(3, 4, 5)).subscribe(value => {
-      outputValues.push(value);
-    });
+    await new Promise(resolve =>
+      catchError(source, () => Observable.of(3, 4, 5)).subscribe({
+        next: value => {
+          outputValues.push(value);
+        },
+        complete: resolve,
+      }),
+    );
 
     expect(outputValues).to.eql([1, 2, 3, 4, 5]);
   });
 
-  it('passes the error value to the mapping function', () => {
+  it('passes the error value to the mapping function', async () => {
     const source = new Observable(observer => observer.error('error'));
 
     const map = sinon.spy(() => Observable.of());
 
-    catchError(source, map).subscribe(() => {});
+    await new Promise(resolve =>
+      catchError(source, map).subscribe({
+        complete: resolve,
+      }),
+    );
 
     expect(map).to.have.been.calledWith('error');
   });
 
-  it('does not modify stream if no error occurs', () => {
+  it('does not modify stream if no error occurs', async () => {
     const source = Observable.of(1, 2, 3);
 
     const outputValues = [];
 
-    catchError(source, () => Observable.of(3, 4, 5)).subscribe(value => {
-      outputValues.push(value);
-    });
+    await new Promise(resolve =>
+      catchError(source, () => Observable.of(3, 4, 5)).subscribe({
+        next: value => {
+          outputValues.push(value);
+        },
+        complete: resolve,
+      }),
+    );
 
     expect(outputValues).to.eql([1, 2, 3]);
   });

@@ -33,20 +33,30 @@ describe('(Operator) concat', () => {
     expect(outputValues).to.eql([1, 4, 5, 6, 7, 8, 9]);
   });
 
-  it('propagates errors from all inputs', () => {
+  it('propagates errors from all inputs', async () => {
     const errorObservable = new Observable(observer => observer.error('error'));
     const errorHandler1 = sinon.spy();
     const errorHandler2 = sinon.spy();
 
-    concat(errorObservable, Observable.of()).subscribe({
-      error: errorHandler1,
-    });
+    await new Promise(resolve =>
+      concat(errorObservable, Observable.of()).subscribe({
+        error: e => {
+          errorHandler1(e);
+          resolve();
+        },
+      }),
+    );
 
     expect(errorHandler1).to.have.been.calledWith('error');
 
-    concat(Observable.of(), errorObservable).subscribe({
-      error: errorHandler2,
-    });
+    await new Promise(resolve =>
+      concat(Observable.of(), errorObservable).subscribe({
+        error: e => {
+          errorHandler2(e);
+          resolve();
+        },
+      }),
+    );
 
     expect(errorHandler2).to.have.been.calledWith('error');
   });

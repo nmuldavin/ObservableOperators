@@ -21,20 +21,12 @@
  */
 const catchError = (input, fn) =>
   new input.constructor(observer => {
-    let subscription;
-
-    input.subscribe({
-      start(subs) {
-        subscription = subs;
-      },
+    let subscription = input.subscribe({
       next(value) {
         observer.next(value);
       },
       error(e) {
-        fn(e).subscribe({
-          start(subs) {
-            subscription = subs;
-          },
+        subscription = fn(e).subscribe({
           next(value) {
             observer.next(value);
           },

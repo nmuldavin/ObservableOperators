@@ -9,12 +9,17 @@ describe('(Operator) startWith', () => {
     expect(startWith(Observable.of())).to.be.an.instanceOf(Observable);
   });
 
-  it('starts with the provided values', () => {
+  it('starts with the provided values', async () => {
     const outputValues = [];
 
-    startWith(Observable.of(1, 2, 3), 4, 5, 6).subscribe(value => {
-      outputValues.push(value);
-    });
+    await new Promise(resolve =>
+      startWith(Observable.of(1, 2, 3), 4, 5, 6).subscribe({
+        next(value) {
+          outputValues.push(value);
+        },
+        complete: resolve,
+      }),
+    );
 
     expect(outputValues).to.eql([4, 5, 6, 1, 2, 3]);
   });

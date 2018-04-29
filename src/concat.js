@@ -5,22 +5,23 @@
  * even if it's unlikely that someone wants to concat that many streams
  */
 const subscribe = (sources, observer, onSubscribe) =>
-  sources[0].subscribe({
-    start: onSubscribe,
-    next(value) {
-      observer.next(value);
-    },
-    error(e) {
-      observer.error(e);
-    },
-    complete() {
-      if (sources.length > 1) {
-        subscribe(sources.slice(1), observer, onSubscribe);
-      } else {
-        observer.complete();
-      }
-    },
-  });
+  onSubscribe(
+    sources[0].subscribe({
+      next(value) {
+        observer.next(value);
+      },
+      error(e) {
+        observer.error(e);
+      },
+      complete() {
+        if (sources.length > 1) {
+          subscribe(sources.slice(1), observer, onSubscribe);
+        } else {
+          observer.complete();
+        }
+      },
+    }),
+  );
 
 /**
  * Subscribe to a list of Observables in order. As one completes, the next is subscribed.

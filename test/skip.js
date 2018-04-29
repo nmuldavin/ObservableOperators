@@ -9,12 +9,17 @@ describe('(Operator) skip', () => {
     expect(skip(Observable.of())).to.be.an.instanceOf(Observable);
   });
 
-  it('skips the first N values of the input observable', () => {
+  it('skips the first N values of the input observable', async () => {
     const outputValues = [];
 
-    skip(Observable.of(1, 2, 3, 4), 2).subscribe(value => {
-      outputValues.push(value);
-    });
+    await new Promise(resolve =>
+      skip(Observable.of(1, 2, 3, 4), 2).subscribe({
+        next(value) {
+          outputValues.push(value);
+        },
+        complete: resolve,
+      }),
+    );
 
     expect(outputValues).to.eql([3, 4]);
   });

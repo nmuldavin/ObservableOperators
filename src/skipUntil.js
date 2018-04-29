@@ -19,12 +19,8 @@
 const skipUntil = (input, signal) =>
   new input.constructor(observer => {
     let block = true;
-    let signalSubscription;
 
-    signal.subscribe({
-      start(subs) {
-        signalSubscription = subs;
-      },
+    const signalSubscription = signal.subscribe({
       next() {
         block = false;
         signalSubscription.unsubscribe();
