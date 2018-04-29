@@ -10,9 +10,18 @@ describe('(Creator) error', () => {
     expect(error(Promise.resolve())).to.be.an.instanceOf(Observable);
   });
 
-  it('should trigger an Observable error event with the provided value', () => {
-    const observer = { error: sinon.spy() };
-    error('error').subscribe(observer);
-    expect(observer.error).to.have.been.calledWith('error');
+  it('should trigger an Observable error event with the provided value', async () => {
+    const errorHandler = sinon.spy();
+
+    await new Promise(resolve => {
+      error('error').subscribe({
+        error(e) {
+          errorHandler(e);
+          resolve();
+        },
+      });
+    });
+
+    expect(errorHandler).to.have.been.calledWith('error');
   });
 });

@@ -10,23 +10,33 @@ describe('(Operator) takeLast', () => {
     expect(takeLast(Observable.of())).to.be.an.instanceOf(Observable);
   });
 
-  it('takes the last N values of the input observable', () => {
+  it('takes the last N values of the input observable', async () => {
     const outputValues = [];
 
-    takeLast(Observable.of(1, 2, 3, 4, 5), 2).subscribe(value => {
-      outputValues.push(value);
-    });
+    await new Promise(resolve =>
+      takeLast(Observable.of(1, 2, 3, 4, 5), 2).subscribe({
+        next(value) {
+          outputValues.push(value);
+        },
+        complete: resolve,
+      }),
+    );
 
     expect(outputValues).to.eql([4, 5]);
   });
 
-  it('propagates errors from the input observable', () => {
+  it('propagates errors from the input observable', async () => {
     const errorObservable = new Observable(observer => observer.error('error'));
     const errorHandler = sinon.spy();
 
-    takeLast(errorObservable, 5).subscribe({
-      error: errorHandler,
-    });
+    await new Promise(resolve =>
+      takeLast(errorObservable, 5).subscribe({
+        error(e) {
+          errorHandler(e);
+          resolve();
+        },
+      }),
+    );
 
     expect(errorHandler).to.have.been.calledWith('error');
   });

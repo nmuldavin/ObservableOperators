@@ -10,23 +10,33 @@ describe('(Operator) skipLast', () => {
     expect(skipLast(Observable.of())).to.be.an.instanceOf(Observable);
   });
 
-  it('leaves off the last N values of the input observable', () => {
+  it('leaves off the last N values of the input observable', async () => {
     const outputValues = [];
 
-    skipLast(Observable.of(1, 2, 3, 4, 5), 2).subscribe(value => {
-      outputValues.push(value);
-    });
+    await new Promise(resolve =>
+      skipLast(Observable.of(1, 2, 3, 4, 5), 2).subscribe({
+        next(value) {
+          outputValues.push(value);
+        },
+        complete: resolve,
+      }),
+    );
 
     expect(outputValues).to.eql([1, 2, 3]);
   });
 
-  it('propagates errors from the input observable', () => {
+  it('propagates errors from the input observable', async () => {
     const errorObservable = new Observable(observer => observer.error('error'));
     const errorHandler = sinon.spy();
 
-    skipLast(errorObservable, 5).subscribe({
-      error: errorHandler,
-    });
+    await new Promise(resolve =>
+      skipLast(errorObservable, 5).subscribe({
+        error(e) {
+          errorHandler(e);
+          resolve();
+        },
+      }),
+    );
 
     expect(errorHandler).to.have.been.calledWith('error');
   });

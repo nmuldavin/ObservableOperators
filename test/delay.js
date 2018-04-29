@@ -53,14 +53,18 @@ describe('(Operator) delay', () => {
     expect(observer).to.not.have.been.called;
   });
 
-  it('propagates errors from the input observable', () => {
+  it('propagates errors from the input observable', async () => {
     const errorObservable = new Observable(observer => observer.error('error'));
     const errorHandler = sinon.spy();
 
-    delay(errorObservable, 50).subscribe({
-      error: errorHandler,
-    });
-
+    await new Promise(resolve =>
+      delay(errorObservable, 50).subscribe({
+        error: e => {
+          errorHandler(e);
+          resolve();
+        },
+      }),
+    );
     expect(errorHandler).to.have.been.calledWith('error');
   });
 });

@@ -12,10 +12,14 @@ describe('(Operator) flatMap', () => {
     expect(flatMap(Observable.of(), x => x)).to.be.an.instanceOf(Observable);
   });
 
-  it('should apply mapping function with each value', () => {
+  it('should apply mapping function with each value', async () => {
     const map = sinon.spy(x => Observable.of(x));
 
-    flatMap(Observable.of(1, 2, 3), map).subscribe(() => {});
+    await new Promise(resolve =>
+      flatMap(Observable.of(1, 2, 3), map).subscribe({
+        complete: resolve,
+      }),
+    );
 
     expect(map)
       .to.have.been.calledWithExactly(1)
@@ -23,19 +27,24 @@ describe('(Operator) flatMap', () => {
       .and.calledWithExactly(3);
   });
 
-  it('should merge the output of all mapped Observables', () => {
+  it('should merge the output of all mapped Observables', async () => {
     const outputValues = [];
 
-    flatMap(Observable.of(2, 3, 5), value =>
-      Observable.of(value, value ** 2),
-    ).subscribe(value => {
-      outputValues.push(value);
-    });
+    await new Promise(resolve =>
+      flatMap(Observable.of(2, 3, 5), value =>
+        Observable.of(value, value ** 2),
+      ).subscribe({
+        next(value) {
+          outputValues.push(value);
+        },
+        complete: resolve,
+      }),
+    );
 
     expect(outputValues).to.include.members([2, 3, 5, 4, 9, 25]);
   });
 
-  it('should handle generators', () => {
+  it('should handle generators', async () => {
     function* emitThreeAfter(val) {
       yield val + 1;
       yield val + 2;
@@ -44,26 +53,36 @@ describe('(Operator) flatMap', () => {
 
     const outputValues = [];
 
-    flatMap(Observable.of(1, 10, 20), emitThreeAfter).subscribe(value => {
-      outputValues.push(value);
+    await new Promise(resolve => {
+      flatMap(Observable.of(1, 10, 20), emitThreeAfter).subscribe({
+        next(value) {
+          outputValues.push(value);
+        },
+        complete: resolve,
+      });
     });
 
     expect(outputValues).to.include.members([2, 3, 4, 11, 12, 13, 21, 22, 23]);
   });
 
-  it('should handle and flatten arrays', () => {
+  it('should handle and flatten arrays', async () => {
     const emitThreeAfter = val => [val + 1, val + 2, val + 3];
 
     const outputValues = [];
 
-    flatMap(Observable.of(1, 10, 20), emitThreeAfter).subscribe(value => {
-      outputValues.push(value);
+    await new Promise(resolve => {
+      flatMap(Observable.of(1, 10, 20), emitThreeAfter).subscribe({
+        next(value) {
+          outputValues.push(value);
+        },
+        complete: resolve,
+      });
     });
 
     expect(outputValues).to.include.members([2, 3, 4, 11, 12, 13, 21, 22, 23]);
   });
 
-  it('should unsubscribe from mapped Observables when unsubscribed', () => {
+  it('should unsubscribe from mapped Observables when unsubscribed', async () => {
     const unsubscribeSpy = sinon.spy();
 
     const map = () => new Observable(() => unsubscribeSpy());
@@ -72,40 +91,52 @@ describe('(Operator) flatMap', () => {
       observer.next();
     });
 
-    flatMap(source, map)
-      .subscribe(() => {})
-      .unsubscribe();
+    const subscription = flatMap(source, map).subscribe(() => {});
+
+    await timeout(50);
+
+    subscription.unsubscribe();
 
     expect(unsubscribeSpy).to.have.been.calledOnce;
   });
 
-  it('should propagate errors from the original Observable', () => {
+  it('should propagate errors from the original Observable', async () => {
     const errorHandlerSpy = sinon.spy();
     const errorObservable = new Observable(observer => {
       observer.error('error');
     });
 
-    flatMap(errorObservable, () => Observable.of()).subscribe({
-      error: errorHandlerSpy,
+    await new Promise(resolve => {
+      flatMap(errorObservable, () => Observable.of()).subscribe({
+        error(e) {
+          errorHandlerSpy(e);
+          resolve();
+        },
+      });
     });
 
     expect(errorHandlerSpy).to.have.been.calledWith('error');
   });
 
-  it('should propagate errors from mapped Observables', () => {
+  it('should propagate errors from mapped Observables', async () => {
     const errorHandlerSpy = sinon.spy();
     const errorObservable = new Observable(observer => {
       observer.error('error');
     });
 
-    flatMap(Observable.of(1), () => errorObservable).subscribe({
-      error: errorHandlerSpy,
+    await new Promise(resolve => {
+      flatMap(Observable.of(1), () => errorObservable).subscribe({
+        error(e) {
+          errorHandlerSpy(e);
+          resolve();
+        },
+      });
     });
 
     expect(errorHandlerSpy).to.have.been.calledWith('error');
   });
 
-  it('should handle errors in mapping function', () => {
+  it('should handle errors in mapping function', async () => {
     const errorHandlerSpy = sinon.spy();
 
     const error = new Error('error');
@@ -115,9 +146,15 @@ describe('(Operator) flatMap', () => {
     };
 
     try {
-      flatMap(Observable.of(1, 2, 3), map).subscribe({
-        error: errorHandlerSpy,
+      await new Promise(resolve => {
+        flatMap(Observable.of(1, 2, 3), map).subscribe({
+          error(e) {
+            errorHandlerSpy(e);
+            resolve();
+          },
+        });
       });
+
       // eslint-disable-next-line
     } catch (e) {}
 

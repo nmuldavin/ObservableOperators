@@ -9,22 +9,32 @@ describe('(Operator) take', () => {
     expect(take(Observable.of())).to.be.an.instanceOf(Observable);
   });
 
-  it('emits the first N values of the input observable', () => {
+  it('emits the first N values of the input observable', async () => {
     const outputValues = [];
 
-    take(Observable.of(1, 2, 3, 4), 2).subscribe(value => {
-      outputValues.push(value);
-    });
+    await new Promise(resolve =>
+      take(Observable.of(1, 2, 3, 4), 2).subscribe({
+        next(value) {
+          outputValues.push(value);
+        },
+        complete: resolve,
+      }),
+    );
 
     expect(outputValues).to.eql([1, 2]);
   });
 
-  it('returns an empty observable when called with N = 0', () => {
+  it('returns an empty observable when called with N = 0', async () => {
     const outputValues = [];
 
-    take(Observable.of(1, 2, 3, 4), 0).subscribe(value => {
-      outputValues.push(value);
-    });
+    await new Promise(resolve =>
+      take(Observable.of(1, 2, 3, 4), 0).subscribe({
+        next(value) {
+          outputValues.push(value);
+        },
+        complete: resolve,
+      }),
+    );
 
     expect(outputValues).to.eql([]);
   });

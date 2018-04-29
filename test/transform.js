@@ -12,46 +12,64 @@ describe('(Operator) transform', () => {
     );
   });
 
-  it('calls the provided operation function once for each observed value', () => {
+  it('calls the provided operation function once for each observed value', async () => {
     const operation = sinon.spy();
-    transform(Observable.of(1, 2, 3), operation).subscribe(() => null);
+
+    await new Promise(resolve =>
+      transform(Observable.of(1, 2, 3), operation).subscribe({
+        complete: resolve,
+      }),
+    );
     expect(operation).to.have.callCount(3);
   });
 
-  it('propagates errors from the input observable', () => {
+  it('propagates errors from the input observable', async () => {
     const errorObservable = new Observable(observer => observer.error('error'));
     const errorHandler = sinon.spy();
 
-    transform(errorObservable, () => null).subscribe({
-      error: errorHandler,
-    });
+    await new Promise(resolve =>
+      transform(errorObservable, () => null).subscribe({
+        error(e) {
+          errorHandler(e);
+          resolve();
+        },
+      }),
+    );
 
     expect(errorHandler).to.have.been.calledWith('error');
   });
 
-  it('propagates complete calls from the input observable', () => {
+  it('propagates complete calls from the input observable', async () => {
     const completeObservable = new Observable(observer => observer.complete());
 
     const completionHandler = sinon.spy();
 
-    transform(completeObservable, () => null).subscribe({
-      complete: completionHandler,
-    });
+    await new Promise(resolve =>
+      transform(completeObservable, () => null).subscribe({
+        complete() {
+          completionHandler();
+          resolve();
+        },
+      }),
+    );
 
     expect(completionHandler).to.have.been.calledOnce;
   });
 
-  it('propagates errors that occur in the provided operation', () => {
+  it('propagates errors that occur in the provided operation', async () => {
     const error = new Error('things went bad');
     const errorHandler = sinon.spy();
     try {
-      transform(Observable.of(1, 2, 3), () => {
-        throw error;
-      }).subscribe({
-        error(e) {
-          errorHandler(e);
-        },
-      });
+      await new Promise(resolve =>
+        transform(Observable.of(1, 2, 3), () => {
+          throw error;
+        }).subscribe({
+          error(e) {
+            errorHandler(e);
+            resolve();
+          },
+        }),
+      );
       // eslint-disable-next-line
     } catch (e) {}
 

@@ -63,24 +63,34 @@ describe('(Operator) takeUntil', () => {
     expect(observedValues).to.eql([1, 2, 3]);
   });
 
-  it('propagates errors from the input observable', () => {
+  it('propagates errors from the input observable', async () => {
     const errorObservable = new Observable(observer => observer.error('error'));
     const errorHandler = sinon.spy();
 
-    takeUntil(errorObservable, signal).subscribe({
-      error: errorHandler,
-    });
+    await new Promise(resolve =>
+      takeUntil(errorObservable, signal).subscribe({
+        error(e) {
+          errorHandler(e);
+          resolve();
+        },
+      }),
+    );
 
     expect(errorHandler).to.have.been.calledWith('error');
   });
 
-  it('propagates errors from the signal observable', () => {
+  it('propagates errors from the signal observable', async () => {
     const errorObservable = new Observable(observer => observer.error('error'));
     const errorHandler = sinon.spy();
 
-    takeUntil(Observable.of(1, 2, 3), errorObservable).subscribe({
-      error: errorHandler,
-    });
+    await new Promise(resolve =>
+      takeUntil(Observable.of(1, 2, 3), errorObservable).subscribe({
+        error(e) {
+          errorHandler(e);
+          resolve();
+        },
+      }),
+    );
 
     expect(errorHandler).to.have.been.calledWith('error');
   });

@@ -73,14 +73,17 @@ describe('(Operator) debounce', () => {
     expect(outputSpy).to.not.have.been.called;
   });
 
-  it('propagates errors from the input observable', () => {
+  it('propagates errors from the input observable', async () => {
     const errorObservable = new Observable(observer => observer.error('error'));
     const errorHandler = sinon.spy();
-
-    debounce(errorObservable, 50).subscribe({
-      error: errorHandler,
-    });
-
+    await new Promise(resolve =>
+      debounce(errorObservable, 50).subscribe({
+        error: e => {
+          errorHandler(e);
+          resolve();
+        },
+      }),
+    );
     expect(errorHandler).to.have.been.calledWith('error');
   });
 });
