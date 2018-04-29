@@ -1,6 +1,6 @@
 {
   "name": "observable-operators",
-  "version": "1.7.2",
+  "version": "1.7.3",
   "main": "lib/index.js",
   "module": "src/index.js",
   "author": "Noah Muldavin <nmuldavin@gmail.com>",
