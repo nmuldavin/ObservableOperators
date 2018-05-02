@@ -174,11 +174,11 @@ describe('(Operator) flatMap', () => {
       complete: completeSpy,
     });
 
-    await timeout(25);
+    await timeout(50);
 
     expect(completeSpy).to.not.have.been.called;
 
-    await timeout(75);
+    await timeout(150);
 
     expect(completeSpy).to.have.been.called;
   });
