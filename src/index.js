@@ -21,6 +21,7 @@ import skip from './skip';
 import skipLast from './skipLast';
 import skipUntil from './skipUntil';
 import startWith from './startWith';
+import switchMap from './switchMap';
 import take from './take';
 import takeLast from './takeLast';
 import takeUntil from './takeUntil';
@@ -47,6 +48,7 @@ const addAll = (target = Observable) => {
     skipLast,
     skipUntil,
     startWith,
+    switchMap,
     take,
     takeLast,
     takeUntil,
@@ -79,6 +81,7 @@ export {
   skip,
   skipLast,
   startWith,
+  switchMap,
   take,
   takeLast,
   takeUntil,
