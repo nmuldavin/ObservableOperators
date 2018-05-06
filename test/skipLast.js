@@ -2,12 +2,17 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import skipLast from '../src/skipLast';
 import apiCheck from './common/apiCheck';
+import MyObservable from './utils/MyObservable';
 
 describe('(Operator) skipLast', () => {
   apiCheck(skipLast);
 
   it('returns a new Observable', () => {
     expect(skipLast(Observable.of())).to.be.an.instanceOf(Observable);
+  });
+
+  it('returns a new instance of the first input Observable', () => {
+    expect(skipLast(MyObservable.of())).to.be.an.instanceOf(MyObservable);
   });
 
   it('leaves off the last N values of the input observable', async () => {

@@ -2,14 +2,19 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import transform from '../src/transform';
 import apiCheck from './common/apiCheck';
+import MyObservable from './utils/MyObservable';
 
 describe('(Operator) transform', () => {
   apiCheck(transform);
 
   it('returns a new observable', () => {
-    expect(transform(Observable.of()), () => null).to.be.an.instanceOf(
+    expect(transform(Observable.of(), () => null)).to.be.an.instanceOf(
       Observable,
     );
+  });
+
+  it('returns a new instance of the first input Observable', () => {
+    expect(transform(MyObservable.of())).to.be.an.instanceOf(MyObservable);
   });
 
   it('calls the provided operation function once for each observed value', async () => {

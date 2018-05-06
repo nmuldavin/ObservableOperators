@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import throttle from '../src/throttle';
 import apiCheck from './common/apiCheck';
+import MyObservable from './utils/MyObservable';
 
 const emitAfterTime = (observer, ms, value) =>
   setTimeout(() => observer.next(value), ms);
@@ -11,6 +12,10 @@ describe('(Operator) throttle', () => {
 
   it('returns a new Observable', () => {
     expect(throttle(Observable.of())).to.be.an.instanceOf(Observable);
+  });
+
+  it('returns a new instance of the first input Observable', () => {
+    expect(throttle(MyObservable.of())).to.be.an.instanceOf(MyObservable);
   });
 
   it('throttles values by specified time interval', async () => {

@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import catchError from '../src/catchError';
 import apiCheck from './common/apiCheck';
+import MyObservable from './utils/MyObservable';
 
 describe('(Operator) catchError', () => {
   apiCheck(catchError);
@@ -10,6 +11,12 @@ describe('(Operator) catchError', () => {
     expect(
       catchError(Observable.of(), () => Observable.of()),
     ).to.be.an.instanceOf(Observable);
+  });
+
+  it('returns a new instance of the first input Observable', () => {
+    expect(
+      catchError(MyObservable.of(), () => Observable.of()),
+    ).to.be.an.instanceOf(MyObservable);
   });
 
   it('does not propagate errors from original stream', async () => {

@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import merge from '../src/merge';
 import apiCheck from './common/apiCheck';
+import MyObservable from './utils/MyObservable';
 
 describe('(Operator) merge', () => {
   apiCheck(merge);
@@ -9,6 +10,12 @@ describe('(Operator) merge', () => {
   it('returns a new Observable', () => {
     expect(merge(Observable.of(), Observable.of())).to.be.an.instanceOf(
       Observable,
+    );
+  });
+
+  it('returns a new instance of the first input Observable', () => {
+    expect(merge(MyObservable.of(), Observable.of())).to.be.an.instanceOf(
+      MyObservable,
     );
   });
 

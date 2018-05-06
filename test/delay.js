@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import delay from '../src/delay';
 import apiCheck from './common/apiCheck';
+import MyObservable from './utils/MyObservable';
 
 const emitAfterTime = (observer, ms, value) =>
   setTimeout(() => observer.next(value), ms);
@@ -13,6 +14,10 @@ describe('(Operator) delay', () => {
 
   it('returns a new Observable', () => {
     expect(delay(Observable.of(), 100)).to.be.an.instanceOf(Observable);
+  });
+
+  it('returns a new instance of the first input Observable', () => {
+    expect(delay(MyObservable.of(), 100)).to.be.an.instanceOf(MyObservable);
   });
 
   it('delays values by the specified time', async () => {

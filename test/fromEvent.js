@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import fromEvent from '../src/fromEvent';
 import apiCheck from './common/apiCheck';
+import MyObservable from './utils/MyObservable';
 
 describe('(Creator) fromEvent', () => {
   const element = document.createElement('div');
@@ -22,6 +23,12 @@ describe('(Creator) fromEvent', () => {
 
   it('should return an Observable', () => {
     expect(observableStream).to.be.an.instanceOf(Observable);
+  });
+
+  it('returns a new instance of specified constructor', () => {
+    expect(fromEvent(element, 'click', MyObservable)).to.be.an.instanceOf(
+      MyObservable,
+    );
   });
 
   it('should not register event listener before subscription', () => {

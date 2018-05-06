@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import interval from '../src/interval';
 import apiCheck from './common/apiCheck';
+import MyObservable from './utils/MyObservable';
 
 const timeout = ms => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -10,6 +11,10 @@ describe('(Creator) interval', () => {
 
   it('should return an Observable', () => {
     expect(interval(() => null)).to.be.an.instanceOf(Observable);
+  });
+
+  it('returns a new instance of specified constructor', () => {
+    expect(interval(100, MyObservable)).to.be.an.instanceOf(MyObservable);
   });
 
   it('should count up integers at the specified rate', async () => {

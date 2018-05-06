@@ -2,12 +2,17 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import takeLast from '../src/takeLast';
 import apiCheck from './common/apiCheck';
+import MyObservable from './utils/MyObservable';
 
 describe('(Operator) takeLast', () => {
   apiCheck(takeLast);
 
   it('returns a new Observable', () => {
     expect(takeLast(Observable.of())).to.be.an.instanceOf(Observable);
+  });
+
+  it('returns a new instance of the first input Observable', () => {
+    expect(takeLast(MyObservable.of(), 1)).to.be.an.instanceOf(MyObservable);
   });
 
   it('takes the last N values of the input observable', async () => {

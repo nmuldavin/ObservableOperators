@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import takeUntil from '../src/takeUntil';
 import apiCheck from './common/apiCheck';
+import MyObservable from './utils/MyObservable';
 
 describe('(Operator) takeUntil', () => {
   const signal = new Observable(observer => {
@@ -15,6 +16,12 @@ describe('(Operator) takeUntil', () => {
   it('returns a new Observable', () => {
     expect(takeUntil(Observable.of(), Observable.of())).to.be.an.instanceOf(
       Observable,
+    );
+  });
+
+  it('returns a new instance of the first input Observable', () => {
+    expect(takeUntil(MyObservable.of(), MyObservable.of())).to.be.an.instanceOf(
+      MyObservable,
     );
   });
 

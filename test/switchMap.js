@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import switchMap from '../src/switchMap';
 import apiCheck from './common/apiCheck';
+import MyObservable from './utils/MyObservable';
 
 const emitAfterTime = (observer, ms, value) =>
   setTimeout(() => observer.next(value), ms);
@@ -13,6 +14,12 @@ describe('(Operator) switchMap', () => {
 
   it('returns a new Observable', () => {
     expect(switchMap(Observable.of(), x => x)).to.be.an.instanceOf(Observable);
+  });
+
+  it('returns a new instance of the first input Observable', () => {
+    expect(switchMap(MyObservable.of(), x => x)).to.be.an.instanceOf(
+      MyObservable,
+    );
   });
 
   it('should apply mapping function with each value', async () => {

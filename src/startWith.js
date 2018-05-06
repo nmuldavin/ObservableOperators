@@ -14,7 +14,8 @@ import concat from './concat';
  * @param  {...*}       values  Values to start with
  * @return {Observable} new Observable
  */
-const startWith = (input, ...values) => concat(Observable.from(values), input);
+const startWith = (input, ...values) =>
+  concat(input.constructor.from(values), input);
 
 startWith._name = 'startWith';
 

@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import flatMap from '../src/flatMap';
 import apiCheck from './common/apiCheck';
+import MyObservable from './utils/MyObservable';
 
 const timeout = ms => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -10,6 +11,12 @@ describe('(Operator) flatMap', () => {
 
   it('returns a new Observable', () => {
     expect(flatMap(Observable.of(), x => x)).to.be.an.instanceOf(Observable);
+  });
+
+  it('returns a new instance of the first input Observable', () => {
+    expect(flatMap(MyObservable.of(), () => false)).to.be.an.instanceOf(
+      MyObservable,
+    );
   });
 
   it('should apply mapping function with each value', async () => {
@@ -85,7 +92,7 @@ describe('(Operator) flatMap', () => {
   it('should unsubscribe from mapped Observables when unsubscribed', async () => {
     const unsubscribeSpy = sinon.spy();
 
-    const map = () => new Observable(() => unsubscribeSpy());
+    const map = () => new Observable(() => unsubscribeSpy);
 
     const source = new Observable(observer => {
       observer.next();

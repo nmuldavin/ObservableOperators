@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import concat from '../src/concat';
 import apiCheck from './common/apiCheck';
+import MyObservable from './utils/MyObservable';
 
 describe('(Operator) concat', () => {
   apiCheck(concat);
@@ -10,6 +11,12 @@ describe('(Operator) concat', () => {
     expect(concat(Observable.of(), Observable.of())).to.be.an.instanceOf(
       Observable,
     );
+  });
+
+  it('returns a new instance of the first input Observable', () => {
+    expect(
+      concat(MyObservable.of(), () => Observable.of()),
+    ).to.be.an.instanceOf(MyObservable);
   });
 
   it('emits all values from all input observables in order', async () => {

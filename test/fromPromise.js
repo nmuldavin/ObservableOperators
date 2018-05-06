@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import fromPromise from '../src/fromPromise';
 import apiCheck from './common/apiCheck';
+import MyObservable from './utils/MyObservable';
 
 describe('(Creator) fromPromise', () => {
   let observer;
@@ -11,6 +12,12 @@ describe('(Creator) fromPromise', () => {
 
   it('should return an Observable', () => {
     expect(fromPromise(Promise.resolve())).to.be.an.instanceOf(Observable);
+  });
+
+  it('returns a new instance of specified constructor', () => {
+    expect(fromPromise(Promise.resolve(), MyObservable)).to.be.an.instanceOf(
+      MyObservable,
+    );
   });
 
   it('should emit the resolved value and complete upon promise resolution', async () => {

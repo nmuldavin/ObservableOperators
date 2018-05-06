@@ -28,7 +28,7 @@
  * @return {Observable}       New Observable that emits the flattened outputs of all mapped values
  */
 const flatMap = (input, fn) =>
-  new Observable(observer => {
+  new input.constructor(observer => {
     const subscriptions = new Map();
     let completed;
     let index = 0;

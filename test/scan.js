@@ -1,12 +1,17 @@
 import { expect } from 'chai';
 import scan from '../src/scan';
 import apiCheck from './common/apiCheck';
+import MyObservable from './utils/MyObservable';
 
 describe('(Operator) scan', () => {
   apiCheck(scan);
 
   it('returns a new Observable', () => {
     expect(scan(Observable.of())).to.be.an.instanceOf(Observable);
+  });
+
+  it('returns a new instance of the first input Observable', () => {
+    expect(scan(MyObservable.of())).to.be.an.instanceOf(MyObservable);
   });
 
   it('emits the correct accumulated values', async () => {

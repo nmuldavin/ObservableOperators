@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import debounce from '../src/debounce';
 import apiCheck from './common/apiCheck';
+import MyObservable from './utils/MyObservable';
 
 const emitAfterTime = (observer, ms, value) =>
   setTimeout(() => observer.next(value), ms);
@@ -11,6 +12,10 @@ describe('(Operator) debounce', () => {
 
   it('returns a new Observable', () => {
     expect(debounce(Observable.of())).to.be.an.instanceOf(Observable);
+  });
+
+  it('returns a new instance of the first input Observable', () => {
+    expect(debounce(MyObservable.of())).to.be.an.instanceOf(MyObservable);
   });
 
   it('debounces values by specified time interval', async () => {

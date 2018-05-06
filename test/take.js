@@ -1,12 +1,17 @@
 import { expect } from 'chai';
 import take from '../src/take';
 import apiCheck from './common/apiCheck';
+import MyObservable from './utils/MyObservable';
 
 describe('(Operator) take', () => {
   apiCheck(take);
 
   it('returns a new Observable', () => {
     expect(take(Observable.of())).to.be.an.instanceOf(Observable);
+  });
+
+  it('returns a new instance of the first input Observable', () => {
+    expect(take(MyObservable.of(), 1)).to.be.an.instanceOf(MyObservable);
   });
 
   it('emits the first N values of the input observable', async () => {
