@@ -8,6 +8,7 @@ import defer from './defer';
 import delay from './delay';
 import error from './error';
 import filter from './filter';
+import first from './first';
 import flatMap from './flatMap';
 import forEach from './forEach';
 import fromEvent from './fromEvent';
@@ -38,6 +39,7 @@ const addAll = (target = Observable) => {
     debounce,
     delay,
     filter,
+    first,
     flatMap,
     forEach,
     map,
@@ -69,6 +71,7 @@ export {
   delay,
   error,
   filter,
+  first,
   flatMap,
   forEach,
   fromEvent,
